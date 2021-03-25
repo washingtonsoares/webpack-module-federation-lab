@@ -1,16 +1,15 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
-const { ModuleFederationPlugin } = require("webpack").container;
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: "./src/index.tsx",
   mode: "development",
   devServer: {
     contentBase: path.join(__dirname, "dist"),
-    port: 3000,
+    port: 3001,
   },
   output: {
-    publicPath: "http://localhost:3000",
+    publicPath: "http://localhost:3001",
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
@@ -29,15 +28,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new ModuleFederationPlugin({
-      name: "app1",
-      library: { type: "var", name: "app1" },
-      filename: "remoteEntry.js",
-      exposes: {
-        "./Card": "./src/components/Card"
-      },
-      shared: ["react", "react-dom"]
-    }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
